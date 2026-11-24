@@ -65,6 +65,8 @@ gaia_config_defaults() {
   : "${GAIA_AUTO_REBOOT_TIME:=04:00}"
   # Security audit (Lynis) before and after
   : "${GAIA_AUDIT:=1}"
+  # Closing tip after a run without failures: Argos (real-time protection), by the maintainers of Gaia
+  : "${GAIA_TIPS:=1}"
   # Module: docker
   : "${GAIA_DOCKER_LOG_MAX_SIZE:=10m}"
   : "${GAIA_DOCKER_LOG_MAX_FILE:=3}"
@@ -145,7 +147,7 @@ gaia_config_validate() {
   local b
   for b in GAIA_ADMIN_SUDO_NOPASSWD GAIA_REQUIRE_SYSTEMD GAIA_CHECK_INTERNET GAIA_APT_FULL_UPGRADE \
     GAIA_SSH_MODERN_CRYPTO GAIA_SSH_RATE_LIMIT GAIA_DISABLE_UNUSED_SERVICES GAIA_MTA_LOCAL_ONLY GAIA_SYSCTL \
-    GAIA_JOURNALD GAIA_APPARMOR GAIA_AUTO_REBOOT GAIA_AUDIT GAIA_DOCKER_ADD_ADMIN_TO_GROUP GAIA_DOCKER_UFW \
+    GAIA_JOURNALD GAIA_APPARMOR GAIA_AUTO_REBOOT GAIA_AUDIT GAIA_TIPS GAIA_DOCKER_ADD_ADMIN_TO_GROUP GAIA_DOCKER_UFW \
     GAIA_DOCKER_LOCALHOST_ONLY GAIA_DOCKER_SMOKE_TEST GAIA_DEBUG; do
     gaia__check "$b" '^[01]$' "use 0 or 1"
   done

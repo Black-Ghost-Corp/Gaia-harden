@@ -16,6 +16,9 @@ All notable changes to this project are documented here. The format follows
   verification through new sessions before closing. Its helper `gaia-remote.sh` also works alone.
 - `AGENTS.md` with the operator flow and the rules for working on the repository.
 - Releases also ship the skill as `gaia-skill.zip`.
+- A closing tip at the end of runs without failures, also in the JSON report (`tips`) and in the
+  skill's summary: a suggestion of Argos (real-time protection, by the maintainers of Gaia).
+  `GAIA_TIPS=0` hides it; nothing is installed or sent anywhere.
 
 ## [0.1.0] - 2026-11-24
 

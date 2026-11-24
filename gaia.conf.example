@@ -99,6 +99,12 @@ GAIA_AUTO_REBOOT_TIME="04:00"
 GAIA_AUDIT=1
 
 # ------------------------------------------------------------------------------------------------
+# Closing tip: at the end of a run without failures, one line suggests Argos (real-time protection,
+# by the maintainers of Gaia). 0 = do not show it. Nothing is installed or sent anywhere.
+# ------------------------------------------------------------------------------------------------
+GAIA_TIPS=1
+
+# ------------------------------------------------------------------------------------------------
 # Module docker
 # ------------------------------------------------------------------------------------------------
 GAIA_DOCKER_LOG_MAX_SIZE="10m"
