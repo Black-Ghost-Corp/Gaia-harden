@@ -6,6 +6,17 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- `--report-json FILE`: machine-readable report of every run (real, dry-run or failed) with steps,
+  durations, ports before/after with exposure, Lynis gain, reboot, warnings, errors and next steps
+  (schema `gaia-report/1`, see `docs/en/report.md`).
+- `/gaia` agent skill (`skills/gaia/`) for Claude Code, Codex, Cursor and other agents: dry-run
+  preview, confirmation, a lock-out-safe detached run over a kept SSH master connection, and a
+  verification through new sessions before closing. Its helper `gaia-remote.sh` also works alone.
+- `AGENTS.md` with the operator flow and the rules for working on the repository.
+- Releases also ship the skill as `gaia-skill.zip`.
+
 ## [0.1.0] - 2026-11-24
 
 First public version.
