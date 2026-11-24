@@ -130,8 +130,8 @@ sudo ./bootstrap.sh --yes \
 
 ### With the release installer
 
-From the first published release on, the installer downloads the version and checks its SHA-256
-(and its Ed25519 signature, when the release is signed) **before** running anything:
+The installer downloads the [latest release](https://github.com/Black-Ghost-Corp/gaia-harden/releases/latest)
+and checks its SHA-256 and Ed25519 signature **before** running anything:
 
 ```bash
 curl -fsSL https://github.com/Black-Ghost-Corp/gaia-harden/releases/latest/download/install.sh | sudo bash
@@ -301,7 +301,7 @@ something big.
 
 **Short term**
 
-- [ ] First signed release (Ed25519) and installer published in GitHub Releases
+- [x] Signed releases (Ed25519) with a signature-verifying installer, published in GitHub Releases
 - [x] Final report in JSON (`--report-json`); a Markdown version to attach to audits is next
 - [x] `/gaia` skill for AI agents; next: an MCP server
 - [ ] `auditd` with baseline rules and `AIDE` (file integrity)

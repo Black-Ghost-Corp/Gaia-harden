@@ -130,8 +130,8 @@ sudo ./bootstrap.sh --yes \
 
 ### Pelo instalador de release
 
-A partir da primeira release publicada, o instalador baixa a versão, confere o SHA-256 (e a
-assinatura Ed25519, quando a release é assinada) **antes** de executar qualquer coisa:
+O instalador baixa a [última release](https://github.com/Black-Ghost-Corp/gaia-harden/releases/latest)
+e confere o SHA-256 e a assinatura Ed25519 **antes** de executar qualquer coisa:
 
 ```bash
 curl -fsSL https://github.com/Black-Ghost-Corp/gaia-harden/releases/latest/download/install.sh | sudo bash
@@ -301,7 +301,7 @@ começar algo grande.
 
 **Curto prazo**
 
-- [ ] Primeira release assinada (Ed25519) e instalador publicado nas releases do GitHub
+- [x] Releases assinadas (Ed25519), com instalador que verifica a assinatura, publicadas no GitHub
 - [x] Relatório final em JSON (`--report-json`); falta a versão em Markdown para anexar a auditorias
 - [x] Skill `/gaia` para agentes de IA; próximo: servidor MCP
 - [ ] `auditd` com regras base e `AIDE` (integridade de arquivos)
