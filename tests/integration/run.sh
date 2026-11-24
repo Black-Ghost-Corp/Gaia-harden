@@ -122,4 +122,4 @@ fail2ban-client -t >/dev/null || fail "fail2ban configuration rejected"
 grep -q 'listening sockets' /tmp/gaia-run1.log || fail "no listening-port report"
 
 echo
-echo "INTEGRATION OK ($(. /etc/os-release && echo "$PRETTY_NAME"))"
+echo "INTEGRATION OK ($(sed -n 's/^PRETTY_NAME="\{0,1\}\([^"]*\)"\{0,1\}$/\1/p' /etc/os-release))"

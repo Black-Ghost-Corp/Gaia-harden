@@ -22,7 +22,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Same script used for local development: bats and shellcheck in pinned containers.
       - name: Unit tests and shellcheck
@@ -39,7 +39,7 @@ jobs:
         image: ['ubuntu:22.04', 'ubuntu:24.04', 'ubuntu:26.04', 'debian:12', 'debian:13']
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Gaia inside a ${{ matrix.image }} container
         run: bash scripts/test.sh integration '${{ matrix.image }}'
