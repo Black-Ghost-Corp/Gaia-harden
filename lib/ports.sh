@@ -12,7 +12,8 @@ gaia_ports_snapshot() {
       if (match($0, /users:\(\("[^"]+"/)) proc = substr($0, RSTART + 9, RLENGTH - 10)
       n = split(local_addr, parts, ":"); port = parts[n]
       addr = substr(local_addr, 1, length(local_addr) - length(port) - 1)
-      gsub(/^\[|\]$/, "", addr); sub(/%.*/, "", addr)
+      # "[fe80::1]%eth0" (IPv6 with a zone): drop the zone first, then the brackets.
+      sub(/%.*/, "", addr); gsub(/^\[|\]$/, "", addr)
       if (addr == "") addr = "*"
       print proto, addr, port, proc
     }' | sort -u

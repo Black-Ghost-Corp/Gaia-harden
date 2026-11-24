@@ -63,6 +63,19 @@ load test_helper
   assert_output --partial 'listening sockets (before) total=3 exposed=2 firewall=inactive'
 }
 
+@test "IPv6 addresses with brackets and a zone are parsed cleanly" {
+  printf '%s\n' \
+    'udp UNCONN 0 0 [fe80::216:3eff:fee6:b7a5]%enp5s0:546 [::]:* users:(("systemd-network",pid=9,fd=20))' \
+    'tcp LISTEN 0 4096 [::1]:8080 [::]:* users:(("app",pid=10,fd=3))' \
+    'tcp LISTEN 0 4096 [::]:22 [::]:* users:(("sshd",pid=11,fd=4))' >"$STUB_STATE/ss"
+  gaia --only preflight
+  assert_success
+  assert_output --regexp 'proto=udp address=fe80::216:3eff:fee6:b7a5 port=546 process=systemd-network'
+  assert_output --regexp 'proto=tcp address=::1 port=8080 process=app exposure="local only"'
+  assert_output --regexp 'proto=tcp address=:: port=22 process=sshd'
+  refute_output --regexp 'address=[^ ]*[][%]'
+}
+
 @test "inside a container, warns that host-owned settings are skipped" {
   export GAIA_CONTAINER=1
   gaia --only preflight
