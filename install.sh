@@ -11,6 +11,7 @@
 #   --release vX.Y.Z   install this release instead of the latest one
 #   --dir DIR          installation directory (default /opt/gaia)
 #   --download-only    install the release but do not run it
+#   -h, --help         show this help and exit (nothing is downloaded or installed)
 #
 # Environment: GAIA_REPO (owner/name on GitHub), GAIA_RELEASE_PUBKEY, GAIA_INSTALL_DIR.
 set -Eeuo pipefail
@@ -36,6 +37,23 @@ die() {
 }
 info() { echo "[gaia-install] $*" >&2; }
 
+# The header comment above is the help text.
+usage() {
+  # From a file: the header comment. Piped (curl | bash) there is no file to read: a short version.
+  if [[ -f ${BASH_SOURCE[0]:-} ]]; then
+    sed -n '4,/^set -Eeuo/p' "${BASH_SOURCE[0]}" | sed -e '$d' -e 's/^# \{0,1\}//'
+    return 0
+  fi
+  cat <<'EOF'
+usage: install.sh [--release vX.Y.Z] [--dir DIR] [--download-only] [bootstrap.sh options]
+  --release vX.Y.Z   install this release instead of the latest one
+  --dir DIR          installation directory (default /opt/gaia)
+  --download-only    install the release but do not run it
+  -h, --help         show this help and exit (nothing is downloaded or installed)
+Everything else is passed to bootstrap.sh (see bootstrap.sh --help).
+EOF
+}
+
 cleanup() { [[ -z $TMP || ! -d $TMP ]] || rm -rf "$TMP"; }
 trap cleanup EXIT
 
@@ -47,6 +65,10 @@ parse_args() {
       --dir) DEST=${2:?--dir needs a directory}; shift ;;
       --dir=*) DEST=${1#*=} ;;
       --download-only) DOWNLOAD_ONLY=1 ;;
+      -h | --help)
+        usage
+        exit 0
+        ;;
       --) shift; BOOTSTRAP_ARGS+=("$@"); break ;;
       *) BOOTSTRAP_ARGS+=("$1") ;;
     esac

@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- `install.sh --help` showed bootstrap's help only after downloading and installing the release; it
+  now prints the installer's own help and exits without downloading or installing anything.
+
 ## [0.1.0] - 2026-11-24
 
 First public version.
