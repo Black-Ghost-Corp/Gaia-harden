@@ -43,7 +43,7 @@ run_shellcheck() {
   mapfile -t files < <(cd "$ROOT" && {
     echo bootstrap.sh
     echo install.sh
-    ls lib/*.sh lib/steps/*.sh lib/modules/*.sh scripts/*.sh tests/fakes/*.bash tests/integration/*.sh 2>/dev/null
+    ls lib/*.sh lib/steps/*.sh lib/modules/*.sh scripts/*.sh tests/fakes/*.bash tests/integration/*.sh skills/*/scripts/*.sh 2>/dev/null
   })
   docker run --rm -v "$VOLUME:/code:ro" -w /code "$SHELLCHECK_IMAGE" -x -P SCRIPTDIR "${files[@]}"
   # Disabled on purpose in the tests:
