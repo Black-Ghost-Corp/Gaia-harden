@@ -126,3 +126,15 @@ install() { run bash "$REPO/install.sh" --dir "$DEST" "$@"; }
   assert_output --partial 'invalid GAIA_REPO'
   refute_called '^curl'
 }
+
+@test "--help shows the installer's help without downloading or installing anything" {
+  publish
+  install --help
+  assert_success
+  assert_output --partial '--download-only'
+  assert_output --partial 'nothing is downloaded or installed'
+  refute_output --partial 'downloading'
+  refute_called 'curl'
+  [[ ! -e $DEST ]]
+}
+
