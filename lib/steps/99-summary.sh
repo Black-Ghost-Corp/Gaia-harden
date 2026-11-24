@@ -23,19 +23,25 @@ summary__ports() {
   fi
 }
 
+# Logs a next step and keeps it for --report-json.
+summary__next() {
+  gaia_info "next step $1: $2"
+  if [[ -n ${GAIA_RUN_DIR:-} ]]; then printf '%s\n' "$2" >>"$GAIA_RUN_DIR/next-steps"; fi
+}
+
 step_run() {
   local u=${GAIA_ADMIN_USER:-<admin>} ip
   ip=$(hostname -I 2>/dev/null | awk '{ print $1 }' || true)
   ip=${ip:-<server-ip>}
   gaia_is_dry_run || summary__ports
-  gaia_info "next step 1: open a NEW session and test: ssh -p $GAIA_SSH_PORT $u@$ip (do NOT close this session before logging in through the new one)"
+  summary__next 1 "open a NEW session and test: ssh -p $GAIA_SSH_PORT $u@$ip (do NOT close this session before logging in through the new one)"
   if gaia_module_selected docker; then
-    gaia_info "next step 2: in the new session, check 'sudo -v' and 'docker ps' (the docker group applies from that login on)"
+    summary__next 2 "in the new session, check 'sudo -v' and 'docker ps' (the docker group applies from that login on)"
   else
-    gaia_info "next step 2: in the new session, check 'sudo -v'"
+    summary__next 2 "in the new session, check 'sudo -v'"
   fi
   if [[ $GAIA_ADMIN_SUDO_NOPASSWD != 1 ]]; then
-    gaia_info "next step 3: if the administrator has no password, set one now as root: passwd $u (sudo asks for it)"
+    summary__next 3 "if the administrator has no password, set one now as root: passwd $u (sudo asks for it)"
   fi
   if [[ -f $(gaia_path /var/run/reboot-required) ]]; then
     gaia_warn "the system asks for a reboot; reboot after confirming access through the new session"

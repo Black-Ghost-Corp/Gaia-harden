@@ -26,6 +26,8 @@ gaia_audit_run() {
   warnings=$(grep -c '^warning\[\]=' "$report" || true)
   suggestions=$(grep -c '^suggestion\[\]=' "$report" || true)
   printf '%s\n' "$GAIA_AUDIT_SCORE" >"$dir/score-$phase"
+  # Score of THIS run for --report-json (score files from older runs may exist).
+  if [[ -n ${GAIA_RUN_DIR:-} ]]; then printf '%s\n' "$GAIA_AUDIT_SCORE" >"$GAIA_RUN_DIR/lynis-$phase"; fi
   gaia_info "Lynis hardening index" "phase=$phase" "index=${GAIA_AUDIT_SCORE:-?}" "warnings=$warnings" \
     "suggestions=$suggestions" "report=$GAIA_AUDIT_DIR/lynis-$phase.dat"
 }

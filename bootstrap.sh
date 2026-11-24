@@ -18,6 +18,8 @@ source "$GAIA_HOME/lib/config.sh"
 source "$GAIA_HOME/lib/os.sh"
 # shellcheck source=lib/ports.sh
 source "$GAIA_HOME/lib/ports.sh"
+# shellcheck source=lib/report.sh
+source "$GAIA_HOME/lib/report.sh"
 # shellcheck source=lib/runner.sh
 source "$GAIA_HOME/lib/runner.sh"
 
