@@ -86,6 +86,10 @@ gaia_log() {
   if [[ $level != debug || $GAIA_DEBUG == 1 ]]; then
     printf '%s\n' "$line"
   fi
+  # Warnings and errors of a run are also kept for --report-json (already redacted above).
+  if [[ ($level == warn || $level == error) && -n ${GAIA_RUN_DIR:-} && -d ${GAIA_RUN_DIR:-} ]]; then
+    printf '%s\t%s\t%s\n' "$level" "$GAIA_STEP" "${line#"[gaia][$level][step=$GAIA_STEP] "}" >>"$GAIA_RUN_DIR/events"
+  fi
   if [[ -n ${GAIA_LOG_FILE:-} && -w ${GAIA_LOG_FILE:-} ]]; then
     printf -v ts '%(%Y-%m-%dT%H:%M:%S%z)T' -1
     printf '%s %s\n' "$ts" "$line" >>"$GAIA_LOG_FILE"

@@ -32,6 +32,7 @@ usage: sudo ./bootstrap.sh [options]
   --no-audit           skip the Lynis security audit before and after
   --config FILE        configuration file (default: gaia.conf next to bootstrap.sh, if present)
   --dry-run            show what each step would change, without changing anything
+  --report-json FILE   write a machine-readable report of the run (JSON) to FILE
   --only LIST          run only these steps (comma separated)
   --skip LIST          skip these steps (repeatable)
   --list-steps         list the steps and exit
@@ -242,7 +243,7 @@ gaia__cli_set() { GAIA__CLI[$1]=$2; }
 gaia__cli_add() { GAIA__CLI[$1]="${GAIA__CLI[$1]:-}${GAIA__CLI[$1]:+$3}$2"; }
 
 gaia_main() {
-  local config="$GAIA_HOME/gaia.conf" config_required=0 list=0 arg
+  local config="$GAIA_HOME/gaia.conf" config_required=0 list=0 arg report=""
   local -a only=() skip=()
   GAIA_OPT_YES=0
   GAIA_DRY_RUN=0
@@ -271,6 +272,8 @@ gaia_main() {
       --swap=*) gaia__cli_set GAIA_SWAP_SIZE "${arg#*=}" ;;
       --no-audit) gaia__cli_set GAIA_AUDIT 0 ;;
       --dry-run) GAIA_DRY_RUN=1 ;;
+      --report-json) report=${2:?--report-json needs a file}; shift ;;
+      --report-json=*) report=${arg#*=} ;;
       --only) IFS=, read -r -a only <<<"${2:?--only needs a list}"; shift ;;
       --only=*) IFS=, read -r -a only <<<"${arg#*=}" ;;
       --skip)
@@ -302,6 +305,13 @@ gaia_main() {
   fi
 
   ((BASH_VERSINFO[0] >= 5)) || gaia_die "bash 5 or newer is required (current: $BASH_VERSION)"
+  if [[ -n $report ]]; then
+    [[ $report == /* ]] || report=$PWD/$report
+    if [[ ! -d $(dirname "$report") || ! -w $(dirname "$report") || -d $report ]]; then
+      gaia_error "cannot write the report: $report (the directory must exist and be writable)"
+      exit 2
+    fi
+  fi
   gaia_config_load "$config" "$config_required"
   # The module menu only appears when nothing chose them (an empty GAIA_MODULES in a copied
   # example file still gets the menu; --modules none skips it).
@@ -356,8 +366,10 @@ gaia_main() {
   gaia_config_log
   gaia_is_dry_run && gaia_info "dry-run mode: nothing will be changed; each step says what it would change"
 
-  local t0 failures=0 abort=0 started
+  local t0 failures=0 abort=0 started started_iso
+  declare -gA GAIA__STATUS_OF=() GAIA__DURATION_US=()
   started=$(gaia__now_us)
+  TZ=UTC0 printf -v started_iso '%(%Y-%m-%dT%H:%M:%SZ)T' -1
   for name in "${GAIA_STEPS[@]}"; do
     if [[ -z ${selected[$name]:-} ]]; then
       status[$name]="skipped"
@@ -373,7 +385,8 @@ gaia_main() {
     fi
     t0=$(gaia__now_us)
     gaia__run_step "$name"
-    duration[$name]=$(gaia__duration $(($(gaia__now_us) - t0)))
+    GAIA__DURATION_US[$name]=$(($(gaia__now_us) - t0))
+    duration[$name]=$(gaia__duration "${GAIA__DURATION_US[$name]}")
     status[$name]=$GAIA__STATUS
     if [[ $GAIA__STATUS == failed ]]; then
       gaia_error "step finished" "status=${status[$name]}" "duration=${duration[$name]}"
@@ -394,8 +407,19 @@ gaia_main() {
   done
   local level=info
   ((failures == 0)) || level=error
-  gaia_log "$level" "run finished" "failures=$failures" "total_duration=$(gaia__duration $(($(gaia__now_us) - started)))" \
+  local finished
+  finished=$(gaia__now_us)
+  gaia_log "$level" "run finished" "failures=$failures" "total_duration=$(gaia__duration $((finished - started)))" \
     "log=${GAIA_LOG_FILE#"$GAIA_ROOT"}"
+  if [[ -n $report ]]; then
+    # shellcheck disable=SC2034 # read by gaia_report_write (lib/report.sh).
+    for name in "${GAIA_STEPS[@]}"; do GAIA__STATUS_OF[$name]=${status[$name]}; done
+    if gaia_report_write "$report" "$failures" "$started" "$finished" "$started_iso"; then
+      gaia_info "report written" "file=$report"
+    else
+      gaia_warn "could not write the report" "file=$report"
+    fi
+  fi
   rm -rf "$GAIA_RUN_DIR"
   if ((failures > 0)); then exit 1; fi
   exit 0

@@ -48,6 +48,8 @@ gaia_ports_docker_filtered() {
 gaia_ports_report() {
   local file=$1 label=$2 proto addr port proc exposure firewall_on=0 total=0
   GAIA_PORTS_EXPOSED=0
+  # "<proto>\t<address>\t<port>\t<process>\t<exposure>" per socket, read by --report-json.
+  : >"$file.exposure"
   gaia_ufw_active && firewall_on=1
   while read -r proto addr port proc; do
     [[ -n $proto ]] || continue
@@ -69,6 +71,7 @@ gaia_ports_report() {
     else
       exposure="blocked by firewall"
     fi
+    printf '%s\t%s\t%s\t%s\t%s\n' "$proto" "$addr" "$port" "$proc" "$exposure" >>"$file.exposure"
     if [[ $exposure == EXPOSED* ]]; then
       gaia_warn "listening ($label)" "proto=$proto" "address=$addr" "port=$port" "process=$proc" "exposure=$exposure"
     else

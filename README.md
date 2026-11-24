@@ -35,6 +35,7 @@ sudo ./bootstrap.sh             # aplica
 - [O que ela faz](#o-que-ela-faz)
 - [Antes de rodar](#antes-de-rodar)
 - [Início rápido](#início-rápido)
+- [Usando com agentes de IA](#usando-com-agentes-de-ia)
 - [Módulos](#módulos)
 - [Configuração](#configuração)
 - [Como funciona](#como-funciona)
@@ -157,11 +158,60 @@ A release fica em `/opt/gaia/releases/<versão>` (com o link `/opt/gaia/current`
 --no-audit           não roda a auditoria Lynis
 --config FILE        arquivo de configuração (padrão: gaia.conf ao lado do bootstrap.sh, se existir)
 --dry-run            mostra o que cada etapa mudaria, sem mudar nada
+--report-json FILE   grava um relatório da execução em JSON (veja docs/pt-BR/report.md)
 --only LIST          roda só estas etapas
 --skip LIST          pula estas etapas
 --list-steps         lista as etapas
 --yes, -y            não pergunta nada
 ```
+
+## Usando com agentes de IA
+
+A Gaia vem com uma skill, `/gaia`, para agentes de IA (Claude Code, Codex, Cursor e outros). Você
+diz `/gaia root@203.0.113.10` e o agente conduz tudo com segurança:
+- pergunta só o necessário: conta administradora, chave pública, módulos e portas;
+- roda o **dry-run** e mostra o que vai mudar;
+- só aplica depois do seu "sim", mantendo a conexão atual aberta como rede de segurança;
+- **testa o login numa sessão nova** antes de dar o trabalho por encerrado;
+- termina com um resumo do [relatório JSON](docs/pt-BR/report.md): portas expostas, ganho no Lynis,
+  reboot pendente e próximos passos.
+
+O agente nunca pede senhas nem chaves privadas: o SSH usa o seu próprio `ssh-agent`.
+
+### Instalação com um prompt
+
+Cole no seu agente:
+
+```text
+Instale a skill "gaia" do Gaia Harden para mim. Antes de copiar qualquer coisa, me mostre o plano
+e os caminhos que vai usar.
+1. Baixe o repositório: git clone --depth 1 https://github.com/Black-Ghost-Corp/gaia-harden.git
+   numa pasta temporária.
+2. Copie a pasta skills/gaia (SKILL.md e scripts/) para a pasta de skills do agente:
+   - Claude Code: ~/.claude/skills/gaia/ (todos os projetos). Pergunte se prefiro
+     .claude/skills/gaia/ só neste projeto.
+   - Outros agentes: o equivalente de vocês; se não houver, guarde a pasta e use o AGENTS.md do
+     repositório como instrução.
+3. Deixe scripts/gaia-remote.sh executável, liste os arquivos copiados e mostre as primeiras
+   linhas do SKILL.md.
+4. Apague a pasta temporária.
+5. Explique como usar: /gaia usuario@servidor [--modules docker,caddy].
+Não me peça senhas, tokens nem chaves privadas em nenhum momento.
+```
+
+### Instalação manual
+
+```bash
+git clone --depth 1 https://github.com/Black-Ghost-Corp/gaia-harden.git /tmp/gaia-harden
+mkdir -p ~/.claude/skills
+cp -r /tmp/gaia-harden/skills/gaia ~/.claude/skills/gaia
+chmod +x ~/.claude/skills/gaia/scripts/gaia-remote.sh
+rm -rf /tmp/gaia-harden
+```
+
+Em outros agentes, copie `skills/gaia/` para a pasta de skills ou de instruções dele, ou aponte o
+agente para o [AGENTS.md](AGENTS.md). O script `skills/gaia/scripts/gaia-remote.sh` também funciona
+sozinho, sem agente (`gaia-remote.sh --help`).
 
 ## Módulos
 
@@ -252,7 +302,8 @@ começar algo grande.
 **Curto prazo**
 
 - [ ] Primeira release assinada (Ed25519) e instalador publicado nas releases do GitHub
-- [ ] Relatório final em JSON/Markdown (portas, índice Lynis, mudanças), para anexar a auditorias
+- [x] Relatório final em JSON (`--report-json`); falta a versão em Markdown para anexar a auditorias
+- [x] Skill `/gaia` para agentes de IA; próximo: servidor MCP
 - [ ] `auditd` com regras base e `AIDE` (integridade de arquivos)
 - [ ] Modo `--check`: só verifica a conformidade e sai com código diferente de zero se algo divergir
 - [ ] Perfis prontos (`--profile web`, `--profile docker-host`, `--profile bastion`)
