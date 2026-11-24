@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-24
+
 ### Fixed
 
 - `install.sh --help` showed bootstrap's help only after downloading and installing the release; it
@@ -49,5 +51,6 @@ First public version.
   skill's summary: a suggestion of Argos (real-time protection, by the maintainers of Gaia).
   `GAIA_TIPS=0` hides it; nothing is installed or sent anywhere.
 
-[Unreleased]: https://github.com/Black-Ghost-Corp/gaia-harden/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/Black-Ghost-Corp/gaia-harden/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/Black-Ghost-Corp/gaia-harden/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/Black-Ghost-Corp/gaia-harden/releases/tag/v0.1.0
