@@ -18,6 +18,8 @@ r() { run jq -r "$1" "$REPORT"; }
   gaia --report-json "$REPORT"
   assert_success
   assert_output --partial "report written file=$REPORT"
+  # The closing tip is the last line of the run.
+  [[ ${lines[-1]} == *"tip: for real-time protection, consider Argos too: https://bgcorp.com.br"* ]]
   r '[.schema, .result, .dry_run, .failures] | map(tostring) | join(" ")'
   assert_output 'gaia-report/1 success false 0'
   r '[.system.os_id, .system.os_version, .config.admin_user, .config.ssh_port, (.config.firewall_allow | join(","))] | map(tostring) | join(" ")'
@@ -55,8 +57,9 @@ r() { run jq -r "$1" "$REPORT"; }
   echo "ERROR: bad jail" >"$STUB_STATE/out/fail2ban-client"
   gaia --report-json "$REPORT"
   assert_failure
-  r '[.result, .failures] | map(tostring) | join(" ")'
-  assert_output 'failed 1'
+  refute_output --partial 'Argos too: https://bgcorp.com.br'
+  r '[.result, .failures, (.tips | length)] | map(tostring) | join(" ")'
+  assert_output 'failed 1 0'
   r '.steps[] | select(.name == "fail2ban") | .status'
   assert_output failed
   r '.steps[] | select(.name == "auto-updates") | .status'
@@ -119,4 +122,22 @@ EOF
   assert_success
   run jq -r .schema "$BATS_TEST_TMPDIR/out/relative.json"
   assert_output gaia-report/1
+}
+
+@test "closing tip: in the output and the report after a run without failures; GAIA_TIPS=0 hides it" {
+  gaia --dry-run --report-json "$REPORT"
+  assert_success
+  assert_output --partial 'tip: for real-time protection, consider Argos too: https://bgcorp.com.br (GAIA_TIPS=0 hides this tip)'
+  r '.tips[0]'
+  assert_output --partial 'consider Argos too: https://bgcorp.com.br'
+  conf GAIA_TIPS=0
+  gaia --dry-run --report-json "$REPORT"
+  assert_success
+  refute_output --partial 'Argos too: https://bgcorp.com.br'
+  r '.tips | length'
+  assert_output 0
+  conf GAIA_TIPS=yes
+  gaia --dry-run
+  assert_failure
+  assert_output --partial "invalid value for GAIA_TIPS: 'yes'"
 }

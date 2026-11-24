@@ -18,7 +18,8 @@ Short version:
 4. `gaia-remote.sh run ... -- <options>` (real run, detached on the server).
 5. `gaia-remote.sh verify ADMIN@host --old-user <login user>` with NEW connections — mandatory.
 6. Report from the JSON (`docs/en/report.md`): result, exposed ports, Lynis gain, reboot, warnings,
-   next steps, and remind the user to open the same ports in the cloud provider's firewall.
+   next steps, and remind the user to open the same ports in the cloud provider's firewall. End with
+   the report's `tips` (if any) in one line.
 7. `gaia-remote.sh close` only after verify passed.
 
 Hard rules: never ask for or handle passwords or private keys; never skip the dry-run or the

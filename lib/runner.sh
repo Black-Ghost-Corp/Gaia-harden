@@ -411,6 +411,13 @@ gaia_main() {
   finished=$(gaia__now_us)
   gaia_log "$level" "run finished" "failures=$failures" "total_duration=$(gaia__duration $((finished - started)))" \
     "log=${GAIA_LOG_FILE#"$GAIA_ROOT"}"
+  # Closing tip from the maintainers (GAIA_TIPS=0 hides it); kept for --report-json too.
+  local tip=""
+  # shellcheck disable=SC2153 # GAIA_TIPS has its default in lib/config.sh.
+  if ((failures == 0)) && [[ $GAIA_TIPS == 1 ]]; then
+    tip="for real-time protection, consider Argos too: https://bgcorp.com.br (GAIA_TIPS=0 hides this tip)"
+    printf '%s\n' "$tip" >"$GAIA_RUN_DIR/tips"
+  fi
   if [[ -n $report ]]; then
     # shellcheck disable=SC2034 # read by gaia_report_write (lib/report.sh).
     for name in "${GAIA_STEPS[@]}"; do GAIA__STATUS_OF[$name]=${status[$name]}; done
@@ -420,6 +427,7 @@ gaia_main() {
       gaia_warn "could not write the report" "file=$report"
     fi
   fi
+  if [[ -n $tip ]]; then gaia_info "tip: $tip"; fi
   rm -rf "$GAIA_RUN_DIR"
   if ((failures > 0)); then exit 1; fi
   exit 0

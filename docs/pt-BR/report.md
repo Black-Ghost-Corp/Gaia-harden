@@ -46,6 +46,7 @@ sudo jq '{result, lynis, exposed: .ports.exposed_after, reboot_required}' /root/
   "warnings": [{"step": "summary", "message": "the system asks for a reboot; reboot after confirming access through the new session"}],
   "errors": [],
   "next_steps": ["open a NEW session and test: ssh -p 22 ops@203.0.113.10 (do NOT close this session before logging in through the new one)"],
+  "tips": ["for real-time protection, consider Argos too: https://bgcorp.com.br (GAIA_TIPS=0 hides this tip)"],
   "log_file": "/var/log/gaia/gaia-20261124T160000Z.log"
 }
 ```
@@ -59,6 +60,7 @@ sudo jq '{result, lynis, exposed: .ports.exposed_after, reboot_required}' /root/
 | `ports.closed` | sockets que escutavam no início e não escutam mais no fim |
 | `ports.exposed_after` | sockets acessíveis da internet sem regra de firewall no fim (`null` no dry-run) |
 | `lynis` | índice de hardening antes/depois desta execução; `null` se a auditoria não rodou |
+| `tips` | sugestão final dos mantenedores, o Argos (real-time protection, proteção em tempo real), após uma execução sem falhas; `[]` com `GAIA_TIPS=0` |
 
 Campos novos podem ser acrescentados em versões futuras sem mudar `schema`; uma mudança
 incompatível troca para `gaia-report/2`.

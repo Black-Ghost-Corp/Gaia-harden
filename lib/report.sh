@@ -13,7 +13,7 @@
 #   ports {before[], after[], closed[], exposed_after}   (socket: proto, address, port, process,
 #                                                          exposure, exposed)
 #   lynis {before, after, gain}   (null when the audit did not run)
-#   reboot_required, warnings [{step, message}], errors [{step, message}], next_steps[], log_file
+#   reboot_required, warnings [{step, message}], errors [{step, message}], next_steps[], tips[], log_file
 # Messages come from the log lines, so secrets are already masked.
 
 # JSON string literal of $1 (quotes, backslashes and control characters escaped).
@@ -161,6 +161,7 @@ gaia_report_write() {
     printf '  "warnings": %s,\n' "$(gaia__json_events "$run/events" warn)"
     printf '  "errors": %s,\n' "$(gaia__json_events "$run/events" error)"
     printf '  "next_steps": %s,\n' "$(gaia__json_list -l "$(cat "$run/next-steps" 2>/dev/null || true)")"
+    printf '  "tips": %s,\n' "$(gaia__json_list -l "$(cat "$run/tips" 2>/dev/null || true)")"
     printf '  "log_file": %s\n' "$(gaia_json_str "${GAIA_LOG_FILE#"$GAIA_ROOT"}")"
     printf '}\n'
   } >"$tmp" && chmod 600 "$tmp" && mv -f "$tmp" "$file"
