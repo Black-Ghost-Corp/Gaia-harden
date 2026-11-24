@@ -6,20 +6,6 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
-### Added
-
-- `--report-json FILE`: machine-readable report of every run (real, dry-run or failed) with steps,
-  durations, ports before/after with exposure, Lynis gain, reboot, warnings, errors and next steps
-  (schema `gaia-report/1`, see `docs/en/report.md`).
-- `/gaia` agent skill (`skills/gaia/`) for Claude Code, Codex, Cursor and other agents: dry-run
-  preview, confirmation, a lock-out-safe detached run over a kept SSH master connection, and a
-  verification through new sessions before closing. Its helper `gaia-remote.sh` also works alone.
-- `AGENTS.md` with the operator flow and the rules for working on the repository.
-- Releases also ship the skill as `gaia-skill.zip`.
-- A closing tip at the end of runs without failures, also in the JSON report (`tips`) and in the
-  skill's summary: a suggestion of Argos (real-time protection, by the maintainers of Gaia).
-  `GAIA_TIPS=0` hides it; nothing is installed or sent anywhere.
-
 ## [0.1.0] - 2026-11-24
 
 First public version.
@@ -46,6 +32,17 @@ First public version.
 - Custom steps in `steps.d/`.
 - Release tooling: reproducible package, SHA256SUMS, optional Ed25519 signature and a verifying
   installer published in GitHub Releases.
+- `--report-json FILE`: machine-readable report of every run (real, dry-run or failed) with steps,
+  durations, ports before/after with exposure, Lynis gain, reboot, warnings, errors and next steps
+  (schema `gaia-report/1`, see `docs/en/report.md`).
+- `/gaia` agent skill (`skills/gaia/`) for Claude Code, Codex, Cursor and other agents: dry-run
+  preview, confirmation, a lock-out-safe detached run over a kept SSH master connection, and a
+  verification through new sessions before closing. Its helper `gaia-remote.sh` also works alone.
+- `AGENTS.md` with the operator flow and the rules for working on the repository.
+- Releases also ship the skill as `gaia-skill.zip`.
+- A closing tip at the end of runs without failures, also in the JSON report (`tips`) and in the
+  skill's summary: a suggestion of Argos (real-time protection, by the maintainers of Gaia).
+  `GAIA_TIPS=0` hides it; nothing is installed or sent anywhere.
 
 [Unreleased]: https://github.com/Black-Ghost-Corp/gaia-harden/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/Black-Ghost-Corp/gaia-harden/releases/tag/v0.1.0
