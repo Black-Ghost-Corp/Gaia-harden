@@ -1,0 +1,77 @@
+name: release
+
+# Publishing a Gaia version = pushing a SemVer tag vX.Y.Z on a commit of main:
+#
+#   git checkout main && git pull
+#   git tag v0.2.0 && git push origin v0.2.0
+#
+# Align GAIA_VERSION in lib/runner.sh with the tag first: the "Check the version" step fails if they
+# differ, so the tag, the package and the version= in the logs never disagree.
+#
+# Tests as a gate -> reproducible package + SHA256SUMS + version.json -> Ed25519 signature
+# (optional) -> GitHub release with install.sh. The logic lives in
+# scripts/release.sh (tested in CI); this file only orchestrates it.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+# Two tags at the same time never race for the "latest" pointers.
+concurrency:
+  group: release-gaia
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Publish ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout the tag
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # history and main, to check where the tag comes from
+
+      - name: Check the version (tag vs GAIA_VERSION)
+        run: bash scripts/release.sh version "$GITHUB_REF_NAME"
+
+      - name: Check that the tag is on main
+        run: |
+          git fetch --quiet origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::Tag $GITHUB_REF_NAME ($GITHUB_SHA) is not on main. Publish from main."
+            exit 1
+          fi
+
+      - name: Tests (gate)
+        run: bash scripts/test.sh
+
+      - name: Package (reproducible tarball, SHA256SUMS, version.json)
+        run: bash scripts/release.sh package "$GITHUB_REF_NAME" dist
+
+      # Optional, both or neither (see scripts/release.sh):
+      #   variable GAIA_RELEASE_PUBKEY       Ed25519 public key, 64 hex
+      #   secret   GAIA_RELEASE_SIGNING_KEY  private key, PKCS#8 DER in base64
+      - name: Sign the manifest
+        env:
+          GAIA_RELEASE_PUBKEY: ${{ vars.GAIA_RELEASE_PUBKEY }}
+          GAIA_RELEASE_SIGNING_KEY: ${{ secrets.GAIA_RELEASE_SIGNING_KEY }}
+        run: bash scripts/release.sh sign dist
+
+      - name: Installer (install.sh with the release key + sha256)
+        env:
+          GAIA_RELEASE_PUBKEY: ${{ vars.GAIA_RELEASE_PUBKEY }}
+        run: bash scripts/release.sh installer dist-installer
+
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" --verify-tag --title "Gaia $GITHUB_REF_NAME" --generate-notes \
+            dist/* dist-installer/install.sh dist-installer/install.sh.sha256
+

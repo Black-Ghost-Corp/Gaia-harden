@@ -1,0 +1,45 @@
+name: ci
+
+# Unit tests (bats), shellcheck and a real run inside throwaway containers of every supported
+# distribution, on every pull request and push to main.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+# A new push to the same branch or pull request cancels the previous run.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: bats + shellcheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Same script used for local development: bats and shellcheck in pinned containers.
+      - name: Unit tests and shellcheck
+        run: bash scripts/test.sh
+
+  integration:
+    name: Real run (${{ matrix.image }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    needs: unit
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ['ubuntu:22.04', 'ubuntu:24.04', 'ubuntu:26.04', 'debian:12', 'debian:13']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Gaia inside a ${{ matrix.image }} container
+        run: bash scripts/test.sh integration '${{ matrix.image }}'

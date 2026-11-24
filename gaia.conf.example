@@ -1,0 +1,129 @@
+# Gaia configuration — copy to gaia.conf (chmod 600) and adjust. Everything is optional: with no
+# file at all, Gaia runs with the defaults below plus whatever you pass on the command line.
+#
+# The file is read by bash as KEY=value. Precedence: command line > this file > environment > default.
+# Invalid values are rejected before any step runs.
+
+# ------------------------------------------------------------------------------------------------
+# Modules: optional software installed already hardened, on top of the base.
+# Available: docker, caddy. Space or comma separated; "none" or "all".
+# ------------------------------------------------------------------------------------------------
+GAIA_MODULES=""
+
+# ------------------------------------------------------------------------------------------------
+# Administrator account (key-only SSH login, sudo). Default: the user who ran sudo.
+# ------------------------------------------------------------------------------------------------
+GAIA_ADMIN_USER=""
+# Public keys, one per line (the content of ~/.ssh/id_ed25519.pub). NEVER the private key.
+GAIA_ADMIN_SSH_KEYS=""
+# Import the public keys of these GitHub users (https://github.com/<user>.keys), space separated.
+GAIA_ADMIN_GITHUB_KEYS=""
+# Import keys already on the server (root's and the sudo user's authorized_keys, where most VPS
+# providers put the key chosen when creating the server): auto (only when no key above), 1 or 0.
+GAIA_ADMIN_IMPORT_KEYS="auto"
+GAIA_ADMIN_SHELL="/bin/bash"
+# 1 = passwordless sudo (the account is key-only and has no password). 0 = sudo asks for a password.
+GAIA_ADMIN_SUDO_NOPASSWD=1
+
+# ------------------------------------------------------------------------------------------------
+# System
+# ------------------------------------------------------------------------------------------------
+GAIA_HOSTNAME=""                   # e.g. web-01 or web-01.example.com; empty = keep the current one
+GAIA_TIMEZONE="UTC"
+GAIA_NTP_PACKAGE="auto"            # auto, chrony or systemd-timesyncd
+GAIA_MIN_DISK_GB=5                 # minimum free space on / (and on the Docker data-root)
+GAIA_REQUIRE_SYSTEMD=1             # 0 only for tests inside containers
+GAIA_CHECK_INTERNET=1              # check apt mirrors and module repositories before starting
+GAIA_APT_FULL_UPGRADE=1            # apt-get full-upgrade when updates are available
+GAIA_APT_UPDATE_MAX_AGE=3600       # seconds before Gaia runs apt-get update again
+GAIA_EXTRA_PACKAGES=""             # extra packages, e.g. "htop git"
+GAIA_SWAP_SIZE=""                  # e.g. 2G; empty = no swap file
+GAIA_SWAP_FILE="/swapfile"
+GAIA_SWAPPINESS=10
+# Directories with owner and mode, "path:owner:group:mode" separated by spaces (@admin = administrator).
+# e.g. "/srv/apps:@admin:@admin:0755 /srv/backups:@admin:@admin:0750"
+GAIA_DIRS=""
+
+# ------------------------------------------------------------------------------------------------
+# SSH (drop-in /etc/ssh/sshd_config.d/00-gaia.conf)
+# ------------------------------------------------------------------------------------------------
+GAIA_SSH_PORT=22
+GAIA_SSH_PERMIT_ROOT_LOGIN="no"    # no, prohibit-password or yes
+GAIA_SSH_PASSWORD_AUTH="no"        # no or yes
+# Only these users may log in over SSH (@admin = the administrator). Empty = no AllowUsers line.
+GAIA_SSH_ALLOW_USERS="@admin"
+GAIA_SSH_MODERN_CRYPTO=1           # modern key exchange, ciphers and MACs only
+GAIA_SSH_MAX_AUTH_TRIES=3
+GAIA_SSH_LOGIN_GRACE_TIME=30
+GAIA_SSH_CLIENT_ALIVE_INTERVAL=300
+GAIA_SSH_TCP_FORWARDING="local"    # local keeps "ssh -L" tunnels (e.g. to a database); no, remote, yes, all
+GAIA_SSH_AGENT_FORWARDING="no"
+GAIA_SSH_DROPIN="/etc/ssh/sshd_config.d/00-gaia.conf"
+
+# ------------------------------------------------------------------------------------------------
+# Firewall (ufw) and fail2ban
+# ------------------------------------------------------------------------------------------------
+GAIA_FIREWALL_ALLOW=""             # extra inbound rules, e.g. "80/tcp 443/tcp 60000:61000/udp"
+GAIA_SSH_RATE_LIMIT=1              # ufw "limit" on the SSH port (blocks connection floods)
+GAIA_FAIL2BAN_BANTIME="1h"
+GAIA_FAIL2BAN_FINDTIME="10m"
+GAIA_FAIL2BAN_MAXRETRY=5
+GAIA_FAIL2BAN_BACKEND="systemd"
+GAIA_FAIL2BAN_IGNOREIP="127.0.0.1/8 ::1"
+
+# ------------------------------------------------------------------------------------------------
+# Exposed services
+# ------------------------------------------------------------------------------------------------
+GAIA_DISABLE_UNUSED_SERVICES=1     # turn off rpcbind, avahi and cups when they are running
+GAIA_DISABLE_SERVICES=""           # more systemd units to turn off, e.g. "snapd.service"
+GAIA_MTA_LOCAL_ONLY=1              # postfix/exim listen on loopback only
+
+# ------------------------------------------------------------------------------------------------
+# Kernel, logs and AppArmor
+# ------------------------------------------------------------------------------------------------
+GAIA_SYSCTL=1                      # network and kernel hardening (/etc/sysctl.d/90-gaia-hardening.conf)
+GAIA_SYSCTL_EXTRA=""               # more settings, e.g. "vm.max_map_count=262144"
+GAIA_JOURNALD=1                    # persistent, compressed journal with a size cap
+GAIA_JOURNALD_MAX_USE="500M"
+GAIA_APPARMOR=1
+
+# ------------------------------------------------------------------------------------------------
+# Automatic security updates
+# ------------------------------------------------------------------------------------------------
+GAIA_AUTO_REBOOT=0                 # 1 = reboot automatically when an update requires it
+GAIA_AUTO_REBOOT_TIME="04:00"
+
+# ------------------------------------------------------------------------------------------------
+# Security audit: Lynis runs before and after and shows the hardening index gain.
+# ------------------------------------------------------------------------------------------------
+GAIA_AUDIT=1
+
+# ------------------------------------------------------------------------------------------------
+# Module docker
+# ------------------------------------------------------------------------------------------------
+GAIA_DOCKER_LOG_MAX_SIZE="10m"
+GAIA_DOCKER_LOG_MAX_FILE=3
+GAIA_DOCKER_DATA_ROOT=""           # Docker data directory (existing data is NOT moved)
+GAIA_DOCKER_ADD_ADMIN_TO_GROUP=1   # the docker group is equivalent to root
+GAIA_DOCKER_UFW=1                  # make ufw apply to published container ports (DOCKER-USER)
+# Container ports reachable from the internet (ufw route rules), e.g. "80/tcp 443/tcp".
+# Note: use the CONTAINER port (e.g. -p 8080:80 -> 80/tcp).
+GAIA_DOCKER_PUBLISH=""
+GAIA_DOCKER_LOCALHOST_ONLY=0       # 1 = ports published without an IP listen on 127.0.0.1 only
+GAIA_DOCKER_SMOKE_TEST=1           # docker run --rm hello-world at the end
+
+# ------------------------------------------------------------------------------------------------
+# Module caddy
+# ------------------------------------------------------------------------------------------------
+# "domain=upstream" separated by spaces; upstream host:port or h2c://host:port (gRPC).
+# e.g. "app.example.com=127.0.0.1:8080 api.example.com=127.0.0.1:9000"
+GAIA_CADDY_SITES=""
+GAIA_CADDY_EMAIL=""                # Let's Encrypt account e-mail (optional)
+GAIA_CADDY_BLOCK_PATHS=""          # paths answering 403 on every site, e.g. "/internal/*"
+
+# ------------------------------------------------------------------------------------------------
+# Runtime
+# ------------------------------------------------------------------------------------------------
+GAIA_EXTRA_STEPS_DIR=""            # your own steps; empty = steps.d/ next to bootstrap.sh
+GAIA_LOG_DIR="/var/log/gaia"
+GAIA_DEBUG=0                       # 1 = debug lines on screen too

@@ -1,0 +1,42 @@
+name: Bug report
+description: Something did not work as documented / Algo não funcionou como documentado
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Security issue?** Do not use this form: see SECURITY.md. / **Falha de segurança?** Não use este formulário: veja o SECURITY.md.
+        Remove secrets (keys, tokens, IPs you do not want public) from logs. / Remova segredos dos logs.
+  - type: input
+    id: version
+    attributes:
+      label: Gaia version (`./bootstrap.sh --version`)
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: System (`. /etc/os-release && echo $PRETTY_NAME`, arch, provider)
+      placeholder: Ubuntu 24.04.1 LTS, amd64, VPS
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and configuration
+      description: The exact command line and the relevant gaia.conf keys (without secrets).
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: The relevant lines of /var/log/gaia/gaia-*.log (ideally with GAIA_DEBUG=1).
+      render: text

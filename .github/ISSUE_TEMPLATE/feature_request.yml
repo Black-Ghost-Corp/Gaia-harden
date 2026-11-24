@@ -1,0 +1,29 @@
+name: Feature or module request
+description: Suggest a new step, module or behavior / Sugira um passo, módulo ou comportamento
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What do you need to secure or automate today, and why is it hard? / O que você precisa proteger ou automatizar?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should Gaia do? Which defaults would be safe, and what should be configurable?
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Benchmarks (CIS, vendor hardening guides), docs or prior art.
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contribution
+      options:
+        - label: I would like to implement this / Quero implementar isto

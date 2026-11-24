@@ -1,0 +1,10 @@
+# The real configuration of a machine (users, keys, local choices): never commit it.
+gaia.conf
+# Logs and test output.
+*.log
+logs/
+tests/.output/
+# Release builds and hand-made bundles.
+dist/
+*.zip
+*.tar.gz

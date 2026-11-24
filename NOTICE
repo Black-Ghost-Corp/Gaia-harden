@@ -1,0 +1,8 @@
+Gaia Bootstrapper
+Copyright 2026 The Gaia Authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The DOCKER-USER rules written by the docker module follow the approach documented by the
+ufw-docker project (https://github.com/chaifeng/ufw-docker, GPL-3.0); no code from that project is
+included here.
