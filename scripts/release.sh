@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Gaia release tooling: package, sign, verify and publish. Called by .github/workflows/release.yml
 # (tag vX.Y.Z); every subcommand also works by hand.
 #

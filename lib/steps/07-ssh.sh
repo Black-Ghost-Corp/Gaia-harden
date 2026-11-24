@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: hardens SSH through a drop-in (no root, no passwords, modern crypto, AllowUsers), with lock-out protection
 #
 # Protection against locking yourself out:

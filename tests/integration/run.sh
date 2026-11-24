@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Integration test: a REAL Gaia run inside a throwaway Ubuntu/Debian container, as root.
 #
 #   docker run --rm --cap-add NET_ADMIN -v "$PWD:/gaia-src:ro" ubuntu:24.04 bash /gaia-src/tests/integration/run.sh

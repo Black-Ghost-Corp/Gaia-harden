@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: unattended-upgrades with security updates only; automatic reboot off by default
 #
 # The 52gaia-* file is read after the package's 50unattended-upgrades. The "#clear" lines (apt.conf

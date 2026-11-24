@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # docker module: official repository, conflicts, merged daemon.json, group, service, ufw for containers.
 
 load test_helper

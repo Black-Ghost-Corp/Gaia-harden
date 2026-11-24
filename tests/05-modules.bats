@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Module selection: --modules, GAIA_MODULES, the interactive menu and "not selected" steps.
 
 load test_helper

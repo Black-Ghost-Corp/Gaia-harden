@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: time zone (GAIA_TIMEZONE) and NTP time synchronization enabled
 
 step_run() {

@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # lib/common.sh — logging, secret masking, dry-run aware execution and idempotent file writes.
 #
 # Loaded by bootstrap.sh and by custom steps (steps.d/):

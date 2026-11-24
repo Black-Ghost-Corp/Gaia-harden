@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Shared test utilities: fake root (GAIA_ROOT), shims for system commands and assertions.
 
 bats_load_library bats-support

@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: host name (GAIA_HOSTNAME) in hostnamectl, /etc/hosts and preserved across cloud-init reboots
 
 step_run() {

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Runs Gaia's tests in containers (works on Linux, macOS and Git Bash on Windows).
 #
 #   scripts/test.sh                       unit tests (bats) + shellcheck

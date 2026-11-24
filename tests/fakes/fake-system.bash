@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Fake system used by the unit tests.
 #
 # Every system command (apt-get, systemctl, useradd, ufw, sshd, docker, curl...) becomes a shim that

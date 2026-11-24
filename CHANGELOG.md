@@ -33,5 +33,5 @@ First public version.
 - Release tooling: reproducible package, SHA256SUMS, optional Ed25519 signature and a verifying
   installer published in GitHub Releases.
 
-[Unreleased]: https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Black-Ghost-Corp/gaia-harden/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Black-Ghost-Corp/gaia-harden/releases/tag/v0.1.0

@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia.conf.example documents every Gaia variable and, filled in, passes validation.
 
 load test_helper

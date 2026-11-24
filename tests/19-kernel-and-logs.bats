@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # sysctl, journald, apparmor and swap steps.
 
 load test_helper

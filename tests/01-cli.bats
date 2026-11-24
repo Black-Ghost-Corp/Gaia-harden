@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Command line: listing, step selection, errors before anything runs, confirmation.
 
 load test_helper

@@ -16,7 +16,7 @@ reports seriously and thank everyone who reports responsibly.
 
 **Do not open public issues, discussions or PRs for vulnerabilities.**
 
-Use [GitHub private vulnerability reporting](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/security/advisories/new)
+Use [GitHub private vulnerability reporting](https://github.com/Black-Ghost-Corp/gaia-harden/security/advisories/new)
 and include, if possible:
 
 - the version (`./bootstrap.sh --version`) and the system (`/etc/os-release`);

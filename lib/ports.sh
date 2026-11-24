@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # lib/ports.sh — listening sockets audit: what is listening, on which interface, and whether the
 # firewall lets it through. Used at the start (preflight) and at the end (summary) of a run.
 

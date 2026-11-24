@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: turns off network services a server rarely needs (rpcbind, avahi, cups) and keeps the local mail server on loopback
 #
 # Only units that are actually enabled or running are touched. Extra units: GAIA_DISABLE_SERVICES.

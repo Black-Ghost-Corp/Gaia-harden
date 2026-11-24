@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # lib/config.sh — loads gaia.conf, applies defaults and validates every value.
 #
 # Precedence: command line > gaia.conf > environment variable already set > default below.

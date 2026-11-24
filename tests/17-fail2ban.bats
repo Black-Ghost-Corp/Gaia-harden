@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # fail2ban step: sshd jail on the configured port, checked with fail2ban-client -t.
 
 load test_helper

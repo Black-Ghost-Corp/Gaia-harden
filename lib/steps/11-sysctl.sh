@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: kernel and network hardening via sysctl (anti-spoofing, no redirects, SYN cookies, restricted kernel info)
 #
 # Only settings that do not break a regular server. IP forwarding is NOT touched: Docker and VPNs

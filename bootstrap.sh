@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Gaia — turns a freshly installed Linux server (Ubuntu 22.04/24.04/26.04, Debian 12/13) into a
 # hardened host, and optionally installs modules (Docker, Caddy...) already secured.
 #
 # Usage: sudo ./bootstrap.sh [--modules docker,caddy] [--admin-user NAME] [--dry-run] [--yes] ...
 #        ./bootstrap.sh --help
-#
-# Copyright 2026 The Gaia Authors. Licensed under the Apache License, Version 2.0.
 set -Eeuo pipefail
 
 GAIA_HOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)

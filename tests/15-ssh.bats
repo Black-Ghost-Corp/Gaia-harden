@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # ssh step: hardening drop-in (modern crypto, AllowUsers), with lock-out protection.
 
 load test_helper

@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # System detection: accepts Ubuntu 22.04/24.04/26.04 and Debian 12/13 on amd64/arm64; refuses the rest.
 
 load test_helper

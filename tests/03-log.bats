@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Logging: line format, file in /var/log/gaia, debug, summary, secrets and the error trap.
 
 load test_helper

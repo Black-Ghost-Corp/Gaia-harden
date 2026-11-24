@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # packages step: apt update (cached), full-upgrade when there are updates, base packages.
 
 load test_helper

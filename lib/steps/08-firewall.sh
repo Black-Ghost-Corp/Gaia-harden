@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: ufw denying inbound by default, SSH rate-limited and allowed before enabling, plus GAIA_FIREWALL_ALLOW
 #
 # Note: ports published by Docker containers do NOT go through ufw by default, because Docker inserts

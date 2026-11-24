@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # hostname step: optional; hostnamectl, /etc/hosts and cloud-init.
 
 load test_helper

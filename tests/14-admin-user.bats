@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # admin-user step: creates the user, sudo group, installs keys (literal, GitHub or imported) and never
 # removes existing ones.
 

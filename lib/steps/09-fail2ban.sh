@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: fail2ban with the sshd jail on the configured port
 
 GAIA_FAIL2BAN_JAIL=/etc/fail2ban/jail.d/gaia.local

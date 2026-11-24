@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: directories with owner and mode (GAIA_DIRS), e.g. for applications and backups
 
 # GAIA_DIRS: "path:owner:group:mode" entries separated by spaces; @admin = GAIA_ADMIN_USER.

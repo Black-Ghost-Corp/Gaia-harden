@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Custom steps: executables in GAIA_EXTRA_STEPS_DIR, same log, dry-run and status contract.
 
 load test_helper

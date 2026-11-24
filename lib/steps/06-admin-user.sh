@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: administrator account (GAIA_ADMIN_USER) in the sudo group, with its public SSH keys
 
 # shellcheck source=../keys.sh

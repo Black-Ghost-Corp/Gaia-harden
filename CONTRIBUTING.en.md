@@ -8,7 +8,7 @@ Thanks for your interest! This guide explains how to propose changes in a way th
 
 - For small fixes (typo, message, test), open the PR directly.
 - For anything bigger (new module, new step, change of a default), first open an
-  [issue](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/issues) describing the problem and
+  [issue](https://github.com/Black-Ghost-Corp/gaia-harden/issues) describing the problem and
   the proposal. Default changes affect every server that runs Gaia, so we discuss them first.
 - Vulnerabilities do **not** go into public issues: see [SECURITY.en.md](SECURITY.en.md).
 - By taking part, you agree to the [code of conduct](CODE_OF_CONDUCT.md).
@@ -43,6 +43,8 @@ Without Docker, install Bash 5, [bats-core](https://github.com/bats-core/bats-co
    `lib/config.sh`.
 6. **No new dependencies** on the server beyond the distribution's official packages.
 7. A `# gaia-description:` header in every step and module (shown by `--list-steps` and in the log).
+8. Every new file starts with the license header:
+   `# Copyright <year> Black Ghost Corporation` and `# SPDX-License-Identifier: Apache-2.0`.
 
 ## Tests
 

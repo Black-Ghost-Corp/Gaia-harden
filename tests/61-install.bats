@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # install.sh: downloads a GitHub release, verifies SHA-256 and signature, installs, runs bootstrap.
 # GitHub is replaced by a curl shim that serves files from a local "releases" directory.
 

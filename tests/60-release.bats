@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # scripts/release.sh: version vs tag, reproducible package, Ed25519 signature, installer.
 
 load test_helper

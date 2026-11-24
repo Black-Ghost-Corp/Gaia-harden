@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # lib/keys.sh — where the administrator's public keys come from. Sourced by the admin-user and ssh
 # steps. Sources, in order:
 #   1. GAIA_ADMIN_SSH_KEYS / --ssh-key  (literal keys, one per line; an invalid line is an error)

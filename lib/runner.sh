@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # lib/runner.sh — command line, step discovery, interactive wizard and ordered execution, with a
 # duration per step and a summary table at the end.
 #

@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # audit-before / audit-after steps: Lynis hardening index before and after.
 
 load test_helper

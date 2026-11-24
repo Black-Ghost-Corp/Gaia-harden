@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: persistent, compressed system journal with a disk usage cap (GAIA_JOURNALD_MAX_USE)
 
 GAIA_JOURNALD_FILE=/etc/systemd/journald.conf.d/90-gaia.conf

@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: Docker Engine + compose + buildx from the official repository, log rotation, and published ports filtered by ufw
 #
 # What this module guarantees, in order (each part acts only if needed):

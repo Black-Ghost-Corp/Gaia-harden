@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Gaia installer: downloads a Gaia release, verifies it (SHA-256 and, when a release key is
 # embedded, its Ed25519 signature) BEFORE running anything, and starts bootstrap.sh.
 #
-#   curl -fsSL https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/releases/latest/download/install.sh | sudo bash
+#   curl -fsSL https://github.com/Black-Ghost-Corp/gaia-harden/releases/latest/download/install.sh | sudo bash
 #   curl -fsSL .../install.sh | sudo bash -s -- --modules docker --admin-user alice --yes
 #
 # Installer options (everything else is passed to bootstrap.sh, see bootstrap.sh --help):
@@ -11,15 +13,13 @@
 #   --download-only    install the release but do not run it
 #
 # Environment: GAIA_REPO (owner/name on GitHub), GAIA_RELEASE_PUBKEY, GAIA_INSTALL_DIR.
-#
-# Copyright 2026 The Gaia Authors. Licensed under the Apache License, Version 2.0.
 set -Eeuo pipefail
 umask 022
 
 # Filled in at release time (scripts/release.sh installer). Do not edit by hand.
 EMBEDDED_PUBKEY=""
 
-REPO=${GAIA_REPO:-Black-Ghost-Corp/Gaia-Bootstrapper}
+REPO=${GAIA_REPO:-Black-Ghost-Corp/gaia-harden}
 PUBKEY=${GAIA_RELEASE_PUBKEY:-$EMBEDDED_PUBKEY}
 DEST=${GAIA_INSTALL_DIR:-/opt/gaia}
 SIGNATURE_FORMAT="gaia-release/1"

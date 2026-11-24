@@ -26,7 +26,7 @@ comunidade uma experiência livre de assédio para todas as pessoas.
 ## Enforcement / Aplicação
 
 Report unacceptable behavior privately to the maintainers through
-[GitHub private reporting](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/security/advisories/new)
+[GitHub private reporting](https://github.com/Black-Ghost-Corp/gaia-harden/security/advisories/new)
 (mark it as a conduct report) or by contacting a maintainer directly. All reports are reviewed and
 handled confidentially, following the enforcement guidelines of the Contributor Covenant.
 

@@ -8,7 +8,7 @@ Obrigado pelo interesse! Este guia explica como propor mudanças de um jeito que
 
 - Para correções pequenas (typo, mensagem, teste), abra o PR direto.
 - Para algo maior (novo módulo, nova etapa, mudança de comportamento padrão), abra antes uma
-  [issue](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/issues) descrevendo o problema e a
+  [issue](https://github.com/Black-Ghost-Corp/gaia-harden/issues) descrevendo o problema e a
   proposta. Mudanças de padrão afetam todo servidor que roda a Gaia, então discutimos primeiro.
 - Vulnerabilidades **não** vão em issues públicas: veja [SECURITY.md](SECURITY.md).
 - Ao participar, você concorda com o [código de conduta](CODE_OF_CONDUCT.md).
@@ -43,6 +43,8 @@ Sem Docker, instale Bash 5, [bats-core](https://github.com/bats-core/bats-core) 
    `lib/config.sh`.
 6. **Sem dependências novas** no servidor além do que vem nos pacotes oficiais da distribuição.
 7. Cabeçalho `# gaia-description:` em cada etapa e módulo (aparece no `--list-steps` e no log).
+8. Todo arquivo novo começa com o cabeçalho de licença:
+   `# Copyright <ano> Black Ghost Corporation` e `# SPDX-License-Identifier: Apache-2.0`.
 
 ## Testes
 

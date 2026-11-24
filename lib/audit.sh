@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # lib/audit.sh — Lynis security audit (CISOfy), run before and after Gaia to show the
 # "hardening index" gain. Sourced by the audit-before and audit-after steps.
 

@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: Caddy reverse proxy with automatic HTTPS (Let's Encrypt) for the sites in GAIA_CADDY_SITES
 #
 # Installs Caddy from its OFFICIAL repository (key checked by fingerprint) as a systemd service on

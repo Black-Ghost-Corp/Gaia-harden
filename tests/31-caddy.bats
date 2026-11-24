@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # caddy module: official repository, generated and validated Caddyfile, 80/443 in ufw, service.
 
 load test_helper

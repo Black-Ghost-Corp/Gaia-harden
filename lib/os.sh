@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # lib/os.sh — distribution, version and architecture detection; NTP package per distribution.
 
 GAIA_SUPPORTED_OS="Ubuntu 22.04/24.04/26.04, Debian 12/13 (amd64 or arm64)"

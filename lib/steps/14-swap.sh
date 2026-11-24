@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: swap file (GAIA_SWAP_SIZE) for small VPS, with low swappiness
 
 step_run() {

@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: Lynis security audit after the changes, compared with the baseline
 
 # shellcheck source=../audit.sh

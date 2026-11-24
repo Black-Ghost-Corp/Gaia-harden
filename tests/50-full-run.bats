@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # Whole runs: dry-run on a fresh machine, two real runs in a row (the second changes nothing).
 
 load test_helper

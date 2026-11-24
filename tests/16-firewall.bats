@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # firewall step: ufw deny/allow defaults, SSH (rate-limited) before enabling, extra rules.
 
 load test_helper

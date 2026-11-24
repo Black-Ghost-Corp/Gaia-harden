@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: checks root, system, free disk, network access and systemd; records what is listening (changes nothing)
 #
 # Root and system/architecture are already enforced by the runner before any step (even with --only

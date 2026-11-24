@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # gaia-description: what is listening now, what was closed, and the next steps (test SSH in a NEW session)
 
 summary__ports() {

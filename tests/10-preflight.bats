@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+# Copyright 2026 Black Ghost Corporation
+# SPDX-License-Identifier: Apache-2.0
 # preflight step: only checks (disk, network, systemd) and records what is listening; never changes anything.
 
 load test_helper

@@ -1,8 +1,8 @@
-# Gaia Bootstrapper
+# Gaia Harden
 
-[![CI](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/actions/workflows/ci.yml/badge.svg)](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/actions/workflows/ci.yml)
+[![CI](https://github.com/Black-Ghost-Corp/gaia-harden/actions/workflows/ci.yml/badge.svg)](https://github.com/Black-Ghost-Corp/gaia-harden/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/Black-Ghost-Corp/Gaia-Bootstrapper?include_prereleases&sort=semver)](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/releases)
+[![Release](https://img.shields.io/github/v/release/Black-Ghost-Corp/gaia-harden?include_prereleases&sort=semver)](https://github.com/Black-Ghost-Corp/gaia-harden/releases)
 ![Platforms](https://img.shields.io/badge/Ubuntu-22.04%20%7C%2024.04%20%7C%2026.04-E95420?logo=ubuntu&logoColor=white)
 ![Platforms](https://img.shields.io/badge/Debian-12%20%7C%2013-A81D33?logo=debian&logoColor=white)
 
@@ -18,8 +18,8 @@ It is plain Bash, with no agents or external dependencies, idempotent (running i
 nothing that is already right) and has `--dry-run` to show everything it would change first.
 
 ```bash
-git clone https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper.git
-cd Gaia-Bootstrapper
+git clone https://github.com/Black-Ghost-Corp/gaia-harden.git
+cd gaia-harden
 sudo ./bootstrap.sh --dry-run   # shows what would change, changes nothing
 sudo ./bootstrap.sh             # applies it
 ```
@@ -110,8 +110,8 @@ Step details: [docs/en/steps.md](docs/en/steps.md).
 ### From the repository (recommended)
 
 ```bash
-git clone https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper.git
-cd Gaia-Bootstrapper
+git clone https://github.com/Black-Ghost-Corp/gaia-harden.git
+cd gaia-harden
 
 # Interactive: asks for the administrator account and the modules.
 sudo ./bootstrap.sh
@@ -133,9 +133,9 @@ From the first published release on, the installer downloads the version and che
 (and its Ed25519 signature, when the release is signed) **before** running anything:
 
 ```bash
-curl -fsSL https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/releases/latest/download/install.sh | sudo bash
+curl -fsSL https://github.com/Black-Ghost-Corp/gaia-harden/releases/latest/download/install.sh | sudo bash
 # with options:
-curl -fsSL https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/releases/latest/download/install.sh \
+curl -fsSL https://github.com/Black-Ghost-Corp/gaia-harden/releases/latest/download/install.sh \
   | sudo bash -s -- --modules docker --admin-user alice --yes
 ```
 
@@ -246,7 +246,7 @@ a VM.
 ## Roadmap
 
 Next steps, in rough order of priority. Suggestions and PRs are welcome: open an
-[issue](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/issues) to discuss before starting
+[issue](https://github.com/Black-Ghost-Corp/gaia-harden/issues) to discuss before starting
 something big.
 
 **Short term**
@@ -287,11 +287,11 @@ with bats tests and passes `shellcheck`, and nothing that changes the system may
 
 Found a vulnerability? **Do not open a public issue.** Follow the
 [security policy](SECURITY.en.md) and use
-[GitHub private reporting](https://github.com/Black-Ghost-Corp/Gaia-Bootstrapper/security/advisories/new).
+[GitHub private reporting](https://github.com/Black-Ghost-Corp/gaia-harden/security/advisories/new).
 
 ## License
 
-Distributed under the [Apache License 2.0](LICENSE). See also the [NOTICE](NOTICE) file.
+Copyright © 2026 Black Ghost Corporation. Distributed under the [Apache License 2.0](LICENSE). See also the [NOTICE](NOTICE) file.
 
 Gaia changes the security configuration of your server. It is provided "as is", without warranties;
 review the `--dry-run` output and test on a throwaway machine before using it in production.
