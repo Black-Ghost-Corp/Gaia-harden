@@ -12,7 +12,7 @@
 # Order: base steps numbered below 90, modules, custom steps, then base steps numbered 90 or more
 # (the final audit and the summary).
 
-GAIA_VERSION="0.1.0"
+GAIA_VERSION="0.1.1"
 
 gaia_usage() {
   cat <<EOF
