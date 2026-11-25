@@ -8,6 +8,8 @@
 
 [Português](README.md) | **English**
 
+![Gaia Harden: one command, hardened server. A terminal runs the installer and ends with Lynis hardening index 59 -> 72, next to an AI agent card with /gaia and the report "web-01 is hardened."](.github/assets/gaia-harden.png)
+
 Gaia turns a freshly created Ubuntu or Debian server (VPS, bare metal or VM) into a hardened host
 with **a single command**: an administrator account with SSH keys, locked-down SSH, a firewall that
 closes everything that does not need to be open, fail2ban, automatic security updates, kernel and
