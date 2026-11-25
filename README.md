@@ -8,6 +8,8 @@
 
 **Português** | [English](README.en.md)
 
+![Gaia Harden: um comando, servidor blindado. Um terminal roda o instalador e termina com o índice Lynis indo de 59 para 72, ao lado do card de um agente de IA com /gaia e o relatório "web-01 is hardened."](.github/assets/gaia-harden.png)
+
 Gaia transforma um servidor Ubuntu ou Debian recém-criado (VPS, máquina dedicada ou VM) em um host
 endurecido com **um único comando**: conta administradora com chave SSH, SSH blindado, firewall
 fechando tudo o que não precisa estar aberto, fail2ban, atualizações de segurança automáticas,
